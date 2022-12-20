@@ -2,8 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {UserLdap} from "../model/user-ldap";
-import {LDAP_USERS} from "../model/ldap-mock-data";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import {UsersService} from "../service/users.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-ldap-list',
@@ -17,13 +18,11 @@ export class LdapListComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
-  constructor() { }
+  constructor(private usersService: UsersService, private router: Router) { }
 
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.filterPredicate = (data: UserLdap, filter) => this.filterPredicate({data: data, filter: filter});
-
     this.getUsers();
   }
 
@@ -38,13 +37,15 @@ export class LdapListComponent implements OnInit {
 
   unactiveSelected = false;
 
-  private getUsers() {
-    this.dataSource.data = LDAP_USERS;
-    if (this.unactiveSelected){
-      this.dataSource.data = this.dataSource.data.filter( user =>
-        user.active === false
-      );
-    }
+  private getUsers(): void {
+    this.usersService.getUsers().subscribe(
+      users => {
+          if (this.unactiveSelected) {
+            this.dataSource.data = users.filter( user =>
+                user.active === false
+            );
+          }
+      });
   }
   unactiveChanged($event: MatSlideToggleChange): void {
     this.unactiveSelected = $event.checked;
