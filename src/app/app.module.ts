@@ -18,12 +18,16 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { LdapDetailComponent } from './ldap-detail/ldap-detail.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    LdapListComponent
+    LdapListComponent,
+    LdapDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,13 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    AppMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
