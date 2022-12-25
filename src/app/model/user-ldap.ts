@@ -6,7 +6,7 @@ export interface UserLdap {
   motDePasse: string;
   mail: string;
   role: string;
-  employerNumero: number;
+  employeNumero: number;
   employeNiveau: number;
   dateEmbauche: string;
   publisherId: number;
